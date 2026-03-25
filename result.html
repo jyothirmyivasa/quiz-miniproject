@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Quiz Result</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card resultCard">
+
+<h2>Your Score</h2>
+
+<h1 id="score"></h1>
+
+<h3>Performance Analysis</h3>
+
+<canvas id="resultChart" width="180" height="180"></canvas>
+
+<h3 id="performanceMsg"></h3>
+
+<h3>Answer Review</h3>
+
+<div id="review"></div>
+
+<button onclick="restartQuiz()" class="btn">Restart Quiz</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* SCORE */
+
+let scoreText = localStorage.getItem("score");
+
+let parts = scoreText.split("/");
+
+let correct = parseInt(parts[0]);
+let total = parseInt(parts[1]);
+
+let wrong = total - correct;
+
+let percentage = Math.round((correct / total) * 100);
+
+document.getElementById("score").innerText =
+correct + " / " + total + "  (" + percentage + "%)";
+
+/* PERFORMANCE MESSAGE */
+
+let msg = "";
+
+if(percentage >= 80){
+msg = "Excellent Performance! ";
+}
+else if(percentage >= 50){
+msg = "Good Job ";
+}
+else{
+msg = "Keep Practicing ";
+}
+
+document.getElementById("performanceMsg").innerText = msg;
+
+/* CHART */
+
+const ctx = document.getElementById('resultChart');
+
+new Chart(ctx, {
+type: 'doughnut',
+data: {
+labels: ['Correct', 'Wrong'],
+datasets: [{
+data: [correct, wrong],
+backgroundColor: [
+'#4CAF50',
+'#F44336'
+]
+}]
+},
+options: {
+plugins: {
+legend: {
+position: 'bottom'
+}
+}
+}
+});
+
+/* REVIEW SECTION */
+
+let quizData = JSON.parse(localStorage.getItem("quizData"));
+let userAnswers = JSON.parse(localStorage.getItem("userAnswers"));
+
+let reviewHTML = "";
+
+quizData.forEach((q,i)=>{
+
+let user = userAnswers[i];
+let correctAnswer = q.c;
+
+let userText = "No Answer";
+
+if(user !== -1 && user !== undefined){
+userText = q.a[user];
+}
+
+let isCorrect = user === correctAnswer;
+
+reviewHTML += `
+<div class="reviewBox">
+
+<p><b>Q${i+1}: ${q.q}</b></p>
+
+<p>Your Answer:
+<span class="${isCorrect ? 'correct':'wrong'}">
+${userText}
+</span>
+</p>
+
+<p>Correct Answer:
+<span class="correct">${q.a[correctAnswer]}</span>
+</p>
+
+</div>
+`;
+
+});
+
+document.getElementById("review").innerHTML = reviewHTML;
+
+/* RESTART QUIZ */
+
+function restartQuiz(){
+window.location="category.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Select Category</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="topbar">
+<span id="username"></span>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Select Quiz Category</h2>
+
+<button onclick="startQuiz('html')" class="btn">HTML</button>
+<button onclick="startQuiz('css')" class="btn">CSS</button>
+<button onclick="startQuiz('js')" class="btn">JavaScript</button>
+<button onclick="selectCategory('gk')" class="btn">General Knowledge</button>
+<button onclick="selectCategory('c')" class="btn">C Language</button>
+<button onclick="selectCategory('python')" class="btn">Python</button>
+<button onclick="selectCategory('java')" class="btn">Java</button>
+<button onclick="selectCategory('riddles')" class="btn">Riddles</button>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+document.getElementById("username").innerText =
+"Welcome " + localStorage.getItem("activeUser");
+</script>
+
+</body>
+</html>

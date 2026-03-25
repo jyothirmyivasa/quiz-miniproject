@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Quiz</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="topbar">
+<span id="username"></span>
+<span id="timer"></span>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="container">
+
+<div class="card quizcard">
+
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+
+<h3 id="qnumber"></h3>
+
+<h2 id="question"></h2>
+
+<div id="options"></div>
+
+<button onclick="nextQuestion()" class="btn">Next</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+initQuiz();
+</script>
+
+</body>
+</html>
