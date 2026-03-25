@@ -284,7 +284,7 @@ document.getElementById("progressBar").style.width=percent+"%";
 
 function startTimer(){
 
-let time = 60;
+let time = 45;
 
 timer = setInterval(()=>{
 
